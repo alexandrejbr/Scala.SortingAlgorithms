@@ -8,20 +8,23 @@ object PerformanceTests {
 
   def main(args: Array[String]) = {
 
-    val r = randomList(new Random(), 8500)
+    val r = randomList(new Random(), 4100)
 
-    println("TailRecursiveMergeSort:" + benchmark(r, TailRecursiveMergeSort))
-    println("MergeSort:" + benchmark(r, MergeSort))
-    println("TailRecursiveMergeSortBad:" + benchmark(r, TailRecursiveMergeSortBad))    
+    println("TailRecursiveMergeSort:" + benchmark(() => TailRecursiveMergeSort(r)))
+    println("MergeSort:" + benchmark(() => MergeSort(r)))
+    println("TailRecursiveMergeSortBad:" + benchmark(() => TailRecursiveMergeSortBad(r)))
+    println("Default sort:" + benchmark(() => r.sorted))
   }
   
-  def benchmark(original: List[Int], ls: ListSort): Long = {
+  def benchmark(ls: () => Unit): Long = {
     // warm up
-    ls(original)
+    for(i <- 1 to 100){
+      ls()
+    }
     
     val initialTime = System.nanoTime()
     
-    ls(original)
+    ls()
     
     System.nanoTime - initialTime
   }

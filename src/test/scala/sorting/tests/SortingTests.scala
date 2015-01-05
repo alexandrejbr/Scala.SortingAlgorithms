@@ -5,7 +5,7 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.FunSuite
 import sorting._
 
-@RunWith(classOf[JUnitRunner])
+//@RunWith(classOf[JUnitRunner])
 class SortingTests extends FunSuite {
 
   implicit def IntIntLessThan(x: Int, y: Int) = x < y
@@ -16,6 +16,7 @@ class SortingTests extends FunSuite {
   }
   
   test("merge sort") {
+    Vector(1,2,3,4).find(_ == 2)
     assert(testSortingAlgorithm(List(9,2,6,7,3,1), MergeSort))
   }
   

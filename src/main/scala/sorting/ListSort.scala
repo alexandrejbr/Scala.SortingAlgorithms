@@ -47,6 +47,7 @@ object TailRecursiveMergeSortBad extends ListSort {
 }
 
 object TailRecursiveMergeSort extends ListSort {
+  @scala.annotation.tailrec
   def merge[T](xs: List[T], ys: List[T], res: List[T])(implicit less: (T, T) => Boolean): List[T] =
     (xs, ys) match {
       case (Nil, ys) => appendReversed(res, ys)//res.reverse ++ ys
@@ -61,11 +62,12 @@ object TailRecursiveMergeSort extends ListSort {
     if (n == 0)
       xs
     else {
-      val (left, right) = xs splitAt (n)
+      val (left, right) = xs splitAt n
       merge(apply(left), apply(right), Nil)
     }
   }
 
+  @scala.annotation.tailrec
   def appendReversed[T](left: List[T], right: List[T]): List[T] = left match {
     case Nil => right
     case head :: tail => appendReversed(tail, head :: right)
